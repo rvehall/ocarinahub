@@ -13,16 +13,27 @@ class RecomendationService:
         "img_link": "https://m.media-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369110_.gif",
         "product_link": "https://www.amazon.com/Night-Noble-Plastic-Ocarina-Black/dp/B008WYNVAW",
         "chamber_count": 1,
-        "hole_count": 1,
-        "type": "Alto C"
+        "hole_count": 12,
+        "material": "plastic",
+        "type": "Alto C",
     },
     {
-        "maker": "Stein",
+        "maker": "Stein Ocarina",
         "img_link": "http://www.steinocarina.com/webimages/136621587610_01.JPG",
         "product_link": "http://www.steinocarina.com/productList.php?class=2&line=4",
         "chamber_count": 1,
-        "hole_count": 1,
+        "hole_count": 12,
+        "material": "plastic",
         "type": "Alto C/Soprano C"
+    },
+    {
+        "maker": "Imperial City Ocarina",
+        "img_link": "https://imperialcityocarina.com/images/cache/ac-12-hole-prod-desc-gallery.270.JPG",
+        "product_link": "https://imperialcityocarina.com/alto-12-hole-key-of-c-p341.html",
+        "chamber_count": 1,
+        "hole_count": 12,
+        "material": "ceramic",
+        "type": "Alto C"
     }]
     
     def calculate_similarity(self, user1_id, user2_id):
