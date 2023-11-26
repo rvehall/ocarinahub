@@ -1,0 +1,13 @@
+button {
+    min-width: 75px;
+    padding: 10px;
+    border: 1px dashed black;
+}
+
+button:hover {
+    background-color: #eaeaea;
+}
+
+.primary {
+    background-color: white;
+}
