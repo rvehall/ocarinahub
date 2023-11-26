@@ -5,20 +5,26 @@ import math
 
 class RecomendationService:
     users = []
-
     ocarinas = []
-
     reviews = []
-
     user_item_matrix = {}
-    for review in reviews:
-        user_id = review['user_id']
-        ocarina_id = review['ocarina_id']
-        rating = review['rating']
-        if user_id not in user_item_matrix:
-            user_item_matrix[user_id] = {}
-        user_item_matrix[user_id][ocarina_id] = rating
-
+    default_recommendations = [{
+        "maker": "Night by Noble",
+        "img_link": "https://m.media-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369110_.gif",
+        "product_link": "https://www.amazon.com/Night-Noble-Plastic-Ocarina-Black/dp/B008WYNVAW",
+        "chamber_count": 1,
+        "hole_count": 1,
+        "type": "Alto C"
+    },
+    {
+        "maker": "Stein",
+        "img_link": "http://www.steinocarina.com/webimages/136621587610_01.JPG",
+        "product_link": "http://www.steinocarina.com/productList.php?class=2&line=4",
+        "chamber_count": 1,
+        "hole_count": 1,
+        "type": "Alto C/Soprano C"
+    }]
+    
     def calculate_similarity(self, user1_id, user2_id):
         user1_ratings =self.user_item_matrix.get(user1_id, {})
         user2_ratings = self.user_item_matrix.get(user2_id, {})
@@ -88,8 +94,5 @@ class RecomendationService:
         similar_users = self.get_top_similar_users(target_user)
         predicted_ratings = self.predict_ratings(target_user, similar_users)
         recommended_ocarinas = sorted(predicted_ratings.items(), key=lambda x: x[1], reverse=True)[:k]
-        return [ocarina for ocarina_id, _ in recommended_ocarinas for ocarina in self.ocarinas if ocarina['id'] == ocarina_id]
-
-
-
-
+        recomendations = [ocarina for ocarina_id, _ in recommended_ocarinas for ocarina in self.ocarinas if ocarina['id'] == ocarina_id]
+        return recomendations if len(recomendations) > 0 else self.default_recommendations
