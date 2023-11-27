@@ -72,29 +72,30 @@ export function Layout() {
     const date = new Date(exp * 1000)
     const now = new Date()
 
-    dispatch({type: "setIsAuthed", payload: date > now})
-    dispatch({type: "setUser", payload: decoded["account"]})
+    dispatch({type: "setIsAuthed", payload: date > now});
+    dispatch({type: "setUser", payload: decoded["account"]});
+    return date > now;
   }
 
  const handleRoute = async e => {
-    checkAuth()
+    const isAuthed = checkAuth()
 
     switch (e.url) {
       case '/profile':
-        if (!state.isAuthed) route('/', true);
+        if (!isAuthed) route('/', true);
+        if (!isAuthed) console.log("not authed")
         break;
       case '/collection':
-        if (!state.isAuthed) route('/', true);
+        if (!isAuthed) route('/', true);
         break;
       case '/login':
-        if (state.isAuthed) route('/profile', true);
+        if (isAuthed) route('/profile', true);
         break;
       case '/register':
-        if (state.isAuthed) route('/profile', true);
+        if (isAuthed) route('/profile', true);
         break;
       case '/':
-        console.log(state.isAuthed)
-        if (state.isAuthed) route('/profile', true);
+        if (isAuthed) route('/profile', true);
         break;
     }
   };

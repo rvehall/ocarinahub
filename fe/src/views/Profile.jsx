@@ -4,7 +4,7 @@ import { AppContext } from '../AppContext';
 
 export function Profile() {
   const { state, dispatch } = useContext(AppContext);
-  console.log(state.user)
+  
   return (<section>
     <h1>Profile</h1>
     <p><strong>email:</strong> {state.user.email}</p>
