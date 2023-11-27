@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
+import { route } from 'preact-router';
 
 import { Input } from '../components/Input/Input';
 import { Button } from '../components/Button/Button';
@@ -28,7 +29,7 @@ export function RegistrationForm () {
     }
     e.preventDefault();
     try {
-      const response = fetch('http://localhost:8000/user/create', {
+      const response = await fetch('http://localhost:8000/user/create', {
         method: "POST", 
         mode: "cors",
         cache: "no-cache",
@@ -40,18 +41,37 @@ export function RegistrationForm () {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(data)
       })
-      console.log('Registration successful:', response); 
-      setFormData({
-        email: '',
-        username: '',
-        fullName: '',
-        password: ''
-      });
+      
+      login()
     } catch (error) {
-      console.error('Registration failed:', error); // Handle error
-      // Handle error state or display error message to the user
+      console.error('Registration failed:', error);
     }
   };
+
+  const login = async () => {
+    const data = new FormData();
+    data.append("username", formData.username);
+    data.append("password", formData.password);
+    
+    try {
+      const response = await fetch('http://localhost:8000/token', {
+        method: "POST", 
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: data
+      })
+      const token = await response.json()
+      console.log(token);
+      document.cookie=`token=${token.access_token}`;
+      console.log(document.cookie)
+      route('/profile');
+    } catch (error) {
+      console.error('Registration failed:', error); 
+    }
+  }
 
   const { email, username, fullName, password } = formData;
 

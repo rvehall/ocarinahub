@@ -1,11 +1,16 @@
 import './Navbar.css';
 import { Link } from 'preact-router/match';
 import { useContext } from 'preact/hooks';
+import { route } from 'preact-router';
 
 import { AppContext } from '../../AppContext';
 
 export const Navbar = () => {
   const { state, dispatch } = useContext(AppContext)
+  const signout = () => {
+    document.cookie = "";
+    route("/login")
+  }
 
   return (
     <nav class="navbar">
@@ -35,7 +40,7 @@ export const Navbar = () => {
           </>}
           {state.isAuthed &&
             <li class="navRight">
-                <Link>Signout</Link>
+                <Link onClick={signout}>Signout</Link>
             </li>
           }
         </ul>
