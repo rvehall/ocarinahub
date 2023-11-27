@@ -6,10 +6,10 @@ import { route } from 'preact-router';
 import { AppContext } from '../../AppContext';
 
 export const Navbar = () => {
-  const { state, dispatch } = useContext(AppContext)
+  const { state, dispatch } = useContext(AppContext);
   const signout = () => {
     document.cookie = "";
-    route("/login")
+    route("/login");
   }
 
   return (
