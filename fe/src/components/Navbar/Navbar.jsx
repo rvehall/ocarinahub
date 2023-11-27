@@ -11,9 +11,11 @@ export const Navbar = () => {
     <nav class="navbar">
       <div class="container">
         <ul class="navList">
-          <li>
-              <Link activeClassName="active" href="/">Home</Link>
-          </li>
+          {!state.isAuthed &&
+            <li>
+                <Link activeClassName="active" href="/">Home</Link>
+            </li>
+          }
           {state.isAuthed &&
             <><li>
                 <Link activeClassName="active" href="/profile">Profile</Link>

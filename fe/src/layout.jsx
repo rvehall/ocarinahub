@@ -44,12 +44,14 @@ const initialState = {
 };
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'isAuthed': 
+    case 'setIsAuthed': 
       return { ...state, isAuthed: action.payload };
-    case 'recommendations': 
+    case 'setRecommendations': 
       return { ...state, recommendations: action.payload };
-    case 'collection': 
-      return { ...state, collection: action.payload }
+    case 'setCollection': 
+      return { ...state, collection: action.payload };
+    case 'setUser': 
+      return { ...state, user: action.payload };
     default: 
       throw new Error('Unexpected action');
   }
@@ -59,7 +61,7 @@ export function Layout() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // some method that returns a promise
-  const isAuthenticated = () => {
+  const checkAuth = () => {
     const cookie = document.cookie.split("=");
     if(cookie[0] === "") {
       return false;
@@ -68,11 +70,14 @@ export function Layout() {
     const decoded = jwtDecode(token);
     const exp = decoded["exp"]
     const date = new Date(exp * 1000)
-    return new Date(date.toDateString()) < new Date(new Date().toDateString());
+    const now = new Date()
+
+    dispatch({type: "setIsAuthed", payload: date > now})
+    dispatch({type: "setUser", payload: decoded["account"]})
   }
 
  const handleRoute = async e => {
-    dispatch({type: "isAuthed", payload: await isAuthenticated()})
+    checkAuth()
 
     switch (e.url) {
       case '/profile':
@@ -82,10 +87,14 @@ export function Layout() {
         if (!state.isAuthed) route('/', true);
         break;
       case '/login':
-        if (state.isAuthed) route('/', true);
+        if (state.isAuthed) route('/profile', true);
         break;
       case '/register':
-        if (state.isAuthed) route('/', true);
+        if (state.isAuthed) route('/profile', true);
+        break;
+      case '/':
+        console.log(state.isAuthed)
+        if (state.isAuthed) route('/profile', true);
         break;
     }
   };

@@ -1,5 +1,9 @@
 import { useState } from 'preact/hooks';
 import { Link } from 'preact-router/match';
+import { useContext } from 'preact/hooks';
+import { route } from 'preact-router';
+
+import { AppContext } from '../AppContext';
 
 import { Input } from '../components/Input/Input';
 import { Button } from '../components/Button/Button';
@@ -9,6 +13,8 @@ export function LoginFrom () {
     username: '',
     password: ''
   });
+  const { state, dispatch } = useContext(AppContext)
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,36 +22,30 @@ export function LoginFrom () {
   };
 
   const handleSubmit = async (e) => {
-    const data = {
-      username: formData.username,
-      password: formData.password,
-    }
+    const data = new FormData();
+    data.append("username", formData.username);
+    data.append("password", formData.password);
+
     e.preventDefault();
     try {
-      const response = fetch('http://localhost:8000/token', {
+      const response = await fetch('http://localhost:8000/token', {
         method: "POST", 
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: JSON.stringify(data)
+        body: data
       })
-      console.log('Registration successful:', response); 
-      setFormData({
-        username: '',
-        password: ''
-      });
+      const token = await response.json()
+      document.cookie=`token=${token.access_token}`;
+      route('/profile');
     } catch (error) {
-      console.error('Registration failed:', error); // Handle error
-      // Handle error state or display error message to the user
+      console.error('Registration failed:', error); 
     }
   };
 
-  const { email, username, fullName, password } = formData;
+  const { username, password } = formData;
 
   return (
     <form onSubmit={handleSubmit}>
