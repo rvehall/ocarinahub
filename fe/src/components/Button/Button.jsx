@@ -1,6 +1,6 @@
 import "./Button.css"
 
-export function Button({type, name, children, className="primary", onClick = () => {}}) {
+export const Button = ({type, name, children, className="primary", onClick = () => {}}) => {
   return (<button 
     type={type} 
     aria-label={name}

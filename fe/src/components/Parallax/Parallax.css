@@ -1,0 +1,15 @@
+.parallax {
+  background-image: url("../../assets/ocarina.png");
+  min-height: 500px; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 5px;
+  text-align: center;
+  color: white;
+}
+
+.parallax h1 {
+    font-size: 100px;
+}

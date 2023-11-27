@@ -4,7 +4,7 @@ import { Link } from 'preact-router/match';
 import { Input } from '../components/Input/Input';
 import { Button } from '../components/Button/Button';
 
-const LoginFrom = () => {
+export function LoginFrom () {
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -79,5 +79,3 @@ const LoginFrom = () => {
     </form>
   );
 };
-
-export default LoginFrom;

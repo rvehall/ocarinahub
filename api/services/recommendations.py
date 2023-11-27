@@ -10,7 +10,7 @@ class RecomendationService:
     user_item_matrix = {}
     default_recommendations = [{
         "maker": "Night by Noble",
-        "img_link": "https://m.media-amazon.com/images/G/01/apparel/rcxgs/tile._CB483369110_.gif",
+        "img_link": "https://m.media-amazon.com/images/I/61GoUcaUWvS.jpg",
         "product_link": "https://www.amazon.com/Night-Noble-Plastic-Ocarina-Black/dp/B008WYNVAW",
         "chamber_count": 1,
         "hole_count": 12,

@@ -1,13 +1,15 @@
-button {
+button, .button {
     min-width: 75px;
     padding: 10px;
+    margin: 10px;
     border: 1px dashed black;
+    text-decoration: none;
 }
 
-button:hover {
+button:hover, .button:hover {
     background-color: #eaeaea;
 }
 
-.primary {
+.primary, .button  {
     background-color: white;
 }

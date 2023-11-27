@@ -4,7 +4,7 @@ import { Link } from 'preact-router/match';
 import { Input } from '../components/Input/Input';
 import { Button } from '../components/Button/Button';
 
-const RegistrationForm = () => {
+export function RegistrationForm () {
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -107,5 +107,3 @@ const RegistrationForm = () => {
     </form>
   );
 };
-
-export default RegistrationForm;

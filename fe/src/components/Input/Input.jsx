@@ -1,6 +1,6 @@
 import "./Input.css"
 
-export function Input({onChange, name, label, type, value, required}) {
+export const Input = ({onChange, name, label, type, value, required}) => {
   return (
     <div class="input">
         <label for={name}>{label} </label>
