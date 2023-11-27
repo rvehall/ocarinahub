@@ -12,12 +12,15 @@ export const Card = ({ ocarina }) => {
         <p class="card-description"><strong>Chamber Count:</strong> {ocarina.chamber_count}</p>
         <p class="card-description"><strong>Number of Holes:</strong> {ocarina.hole_count}</p>
         <p class="card-description"><strong>Material:</strong> {ocarina.material}</p>
+        
+      </div>
+      <div class="card-footer">
         <Button 
-          type="button" 
-          name="product_link" 
-          onClick={() => {window.open(ocarina.product_link)}}>
-            Product Link
-        </Button>
+            type="button" 
+            name="product_link" 
+            onClick={() => {window.open(ocarina.product_link)}}>
+              Product Link
+          </Button>
       </div>
     </div>
   );
