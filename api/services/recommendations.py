@@ -20,7 +20,7 @@ class RecomendationService:
     {
         "maker": "Stein Ocarina",
         "img_link": "http://www.steinocarina.com/webimages/136621587610_01.JPG",
-        "product_link": "http://www.steinocarina.com/productList.php?class=2&line=4",
+        "product_link": "https://www.steinocarina.com/productList.php?class=2&line=4",
         "chamber_count": 1,
         "hole_count": 12,
         "material": "plastic",

@@ -14,9 +14,6 @@ export function Collection() {
   const [recommendations, updateRecommendation] = useState([]);
   const [collection, updateCollection] = useState([]);
 
-  const [ocarina, updateOcarina] = useState({});
-  const [collect, updateCollect] = useState({});
-  const [review, updateReview] = useState({});
   const [formData, setFormData] = useState({
     maker: '',
     img_link: '',
@@ -43,6 +40,7 @@ export function Collection() {
     updateToken(`bearer ${cookie[1]}`);
     fetch("http://localhost:8000/recommendation", { 
       mode: "cors", 
+      
       headers: {"Authorization": `bearer ${cookie[1]}`} 
     })
       .then(response => response.json())
@@ -56,7 +54,7 @@ export function Collection() {
       .then(data => { updateCollection(data) })
   }, [])
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -64,56 +62,75 @@ export function Collection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    updateOcarina({
+    const ocarina = await submitOcarina();
+    submitCollection(ocarina.id);
+    submitReview(ocarina.id);
+    // closeModal()
+  }
+
+  const submitOcarina = async () => {
+    const ocarina = {
       maker: formData.maker,
       img_link: formData.img_link,
       product_link: formData.product_link,
-      chamber_count: formData.chamber_count,
-      hole_count: formData.hole_count,
+      chamber_count: parseInt(formData.chamber_count),
+      hole_count: parseInt(formData.hole_count),
       type: formData.type,
-      custom: formData.custom,
-    })
+      custom: formData.custom === "true",
+    }
 
     const newOcarina = await fetch("http://localhost:8000/ocarinas", {
       method: "POST",
       body: JSON.stringify(ocarina),
-      headers: {"Authorization": token} 
+      headers: {
+        "Authorization": token,
+        "Content-Type": "application/json"
+      } 
     })
 
     const newOcarinaJson = await newOcarina.json()
-    updateOcarina(newOcarinaJson)
+    return newOcarinaJson
+  }
 
-    updateCollect({
-      currently_have: formData.currently_have,
-      owner_id: state.user.id,
-      ocarina_id: newOcarinaJson.id
-    })
-
-    updateReview({
-      ocarina_id: newOcarinaJson.id,
-      user_id: state.user.id,
-      rating: formData.rating,
-      description: formData.description
-    })
-
+  const submitCollection = async(ocarina_id) => {
+    const collect = {
+      currently_have: formData.currently_have === "true",
+      owner_id: parseInt(state.user.id),
+      ocarina_id: parseInt(ocarina_id)
+    }
+    console.log(collect)
     const updatedCollection = await fetch("http://localhost:8000/collections", {
       method: "POST",
       body: JSON.stringify(collect),
-      headers: {"Authorization": token} 
+      headers: {
+        "Authorization": token,
+        "Content-Type": "application/json"
+      } 
     })
 
-    const collectionJson = await updatedCollection.json()
-    updateCollect(collectionJson)
+    const collectionJson = await updatedCollection.json();
+    updateCollection([...collection, {collectionJson}]);
+  }
+
+  const submitReview = async(ocarina_id) => {
+    const review = {
+      ocarina_id: parseInt(ocarina_id),
+      user_id: parseInt(state.user.id),
+      rating: parseInt(formData.rating),
+      description: formData.description
+    }
 
     const updatedReview = await fetch("http://localhost:8000/collections", {
       method: "POST",
       body: JSON.stringify(review),
-      headers: {"Authorization": token} 
-    })
+      headers: {
+        "Authorization": token,
+        "Content-Type": "application/json"
+      } 
+    });
 
-    const reviewJson = await updatedReview.json()
-    updateCollect(reviewJson)
-    closeModal()
+    const reviewJson = await updatedReview.json();
+    return reviewJson;
   }
 
   const { maker, img_link, product_link, chamber_count, hole_count, type, custom, currently_have, rating, description } = formData;
