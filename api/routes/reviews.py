@@ -29,7 +29,7 @@ async def get_reviews(
     queries: ReviewsService = Depends(), 
     db: Session = Depends(get_db)
 ):
-    return queries.get_reviews(db)
+    return queries.get_reviews(db, current_user.id)
 
 @router.get("/{id}", tags=["reviews"])
 async def get_review(

@@ -65,7 +65,7 @@ export function Collection() {
     const ocarina = await submitOcarina();
     submitCollection(ocarina.id);
     submitReview(ocarina.id);
-    // closeModal()
+    closeModal()
   }
 
   const submitOcarina = async () => {
@@ -119,8 +119,7 @@ export function Collection() {
       rating: parseInt(formData.rating),
       description: formData.description
     }
-
-    const updatedReview = await fetch("http://localhost:8000/collections", {
+    const updatedReview = await fetch("http://localhost:8000/reviews", {
       method: "POST",
       body: JSON.stringify(review),
       headers: {
