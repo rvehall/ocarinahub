@@ -5,7 +5,9 @@ from sqlalchemy.orm import Session
 
 class ReviewsService:
     def get_reviews(self, db: Session, user_id: str):
-        return db.query(ocarinas.Ocarina).join(reviews.Review, reviews.Review.ocarina_id == ocarinas.Ocarina.id).filter(reviews.Review.user_id == user_id)
+        return db.query(reviews.Review).filter(reviews.Review.user_id == user_id).all()
+
+        # return db.query(ocarinas.Ocarina).join(reviews.Review, reviews.Review.ocarina_id == ocarinas.Ocarina.id).filter(reviews.Review.user_id == user_id)
 
     def add_review(self, db: Session, review: ReviewBase):
         db_item = reviews.Review(**review.model_dump())

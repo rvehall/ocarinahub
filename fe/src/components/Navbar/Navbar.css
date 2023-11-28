@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #333;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: -5px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  .navRight {
+    float: right;
+  }
+  
+  .navList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navList li {
+    display: inline;
+    margin-right: 15px;
+  }
+  
+  .navList li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+  }
+  
+  .navList li a:hover {
+    color: #ffd700; /* Change the color on hover */
+  }
+
+.active {
+    color: #ffd700 !important; 
+    font-weight: bold;
+    border: 1px dashed #ffd700;
+  }
