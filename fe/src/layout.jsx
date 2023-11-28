@@ -14,6 +14,7 @@ import { RegistrationForm } from './views/RegistrationForm';
 import { LoginFrom } from './views/LoginForm';
 
 const initialState = {
+  myRecommendations: [],
   recommendations: [{
     maker: "Night by Noble",
     img_link: "https://m.media-amazon.com/images/I/61GoUcaUWvS.jpg",
@@ -48,6 +49,8 @@ const reducer = (state, action) => {
       return { ...state, isAuthed: action.payload };
     case 'setRecommendations': 
       return { ...state, recommendations: action.payload };
+    case 'setMyRecommendations': 
+      return { ...state, myRecommendations: action.payload };
     case 'setCollection': 
       return { ...state, collection: action.payload };
     case 'setUser': 
@@ -80,24 +83,24 @@ export function Layout() {
  const handleRoute = async e => {
     const isAuthed = checkAuth()
 
-    switch (e.url) {
-      case '/profile':
-        if (!isAuthed) route('/', true);
-        if (!isAuthed) console.log("not authed")
-        break;
-      case '/collection':
-        if (!isAuthed) route('/', true);
-        break;
-      case '/login':
-        if (isAuthed) route('/profile', true);
-        break;
-      case '/register':
-        if (isAuthed) route('/profile', true);
-        break;
-      case '/':
-        if (isAuthed) route('/profile', true);
-        break;
-    }
+    // switch (e.url) {
+    //   case '/profile':
+    //     if (!isAuthed) route('/', true);
+    //     if (!isAuthed) console.log("not authed")
+    //     break;
+    //   case '/collection':
+    //     if (!isAuthed) route('/', true);
+    //     break;
+    //   case '/login':
+    //     if (isAuthed) route('/profile', true);
+    //     break;
+    //   case '/register':
+    //     if (isAuthed) route('/profile', true);
+    //     break;
+    //   case '/':
+    //     if (isAuthed) route('/profile', true);
+    //     break;
+    // }
   };
 
   return (
