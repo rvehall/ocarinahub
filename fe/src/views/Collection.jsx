@@ -119,7 +119,6 @@ export function Collection() {
       rating: parseInt(formData.rating),
       description: formData.description
     }
-
     const updatedReview = await fetch("http://localhost:8000/reviews", {
       method: "POST",
       body: JSON.stringify(review),

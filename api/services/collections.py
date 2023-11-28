@@ -8,7 +8,7 @@ class CollectionsService:
         return db.query(ocarinas.Collection).join(ocarinas.Collection, ocarinas.Collection.ocarina_id == ocarinas.Ocarina.id).filter(ocarinas.Collection.id == id).first()
    
     def get_collection(self, db: Session, owner_id: str, skip: int = 0, limit: int = 100):  
-        return db.query(ocarinas.Collection).join(ocarinas.Collection, ocarinas.Collection.ocarina_id == ocarinas.Ocarina.id).filter(ocarinas.Collection.owner_id == owner_id).offset(skip).limit(limit).all()
+        return db.query(ocarinas.Collection).select_from(ocarinas.Ocarina).join(ocarinas.Collection, ocarinas.Collection.ocarina_id == ocarinas.Ocarina.id).filter(ocarinas.Collection.owner_id == owner_id).offset(skip).limit(limit).all()
 
     def delete_ocarina_from_collection(self, db: Session, id: str):
         db.query(ocarinas.Collection).filter(ocarinas.Collection.id == id).delete()

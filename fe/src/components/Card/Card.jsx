@@ -11,7 +11,6 @@ export const Card = ({ ocarina }) => {
         <p class="card-description"><strong>Maker:</strong> {ocarina.maker}</p>
         <p class="card-description"><strong>Chamber Count:</strong> {ocarina.chamber_count}</p>
         <p class="card-description"><strong>Number of Holes:</strong> {ocarina.hole_count}</p>
-        
       </div>
       <div class="card-footer">
         <Button 
